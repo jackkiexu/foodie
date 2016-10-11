@@ -14,6 +14,7 @@
         <module>foodie-web</module>
         <module>foodie-utils</module>
         <module>foodie-core</module>
+        <module>foodie-server</module>
     </modules>
 
 
