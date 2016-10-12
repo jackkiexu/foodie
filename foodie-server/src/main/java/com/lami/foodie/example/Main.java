@@ -1,6 +1,7 @@
 package com.lami.foodie.example;
 
-import com.jenkov.nioserver.*;
+import com.lami.foodie.*;
+import com.lami.foodie.WriteProxy;
 import com.lami.foodie.http.HttpMessageReaderFactory;
 import com.lami.foodie.IMessageProcessor;
 import com.lami.foodie.Message;
@@ -21,16 +22,19 @@ public class Main {
                 "\r\n" +
                 "<html><body>Hello World!</body></html>";
 
-        byte[] httpResponseBytes = httpResponse.getBytes("UTF-8");
+        final byte[] httpResponseBytes = httpResponse.getBytes("UTF-8");
 
-        IMessageProcessor messageProcessor = (request, writeProxy) -> {
-            System.out.println("Message Received from socket: " + request.socketId);
+        IMessageProcessor messageProcessor = new IMessageProcessor(){
+            public void process(Message message, WriteProxy writeProxy) {
+                System.out.println("Message Received from socket: " + message.socketId);
 
-            Message response = writeProxy.getMessage();
-            response.socketId = request.socketId;
-            response.writeToMessage(httpResponseBytes);
+                Message response = writeProxy.getMessage();
+                response.socketId = message.socketId;
+                response.writeToMessage(httpResponseBytes);
 
-            writeProxy.enqueue(response);
+                writeProxy.enqueue(response);
+            }
+
         };
 
         Server server = new Server(9999, new HttpMessageReaderFactory(), messageProcessor);

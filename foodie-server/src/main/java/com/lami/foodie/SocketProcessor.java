@@ -19,9 +19,9 @@ public class SocketProcessor implements Runnable {
 
     private IMessageReaderFactory messageReaderFactory = null;
 
-    private Queue<Message> outboundMessageQueue = new LinkedList<>(); //todo use a better / faster queue.
+    private Queue<Message> outboundMessageQueue = new LinkedList<Message>(); //todo use a better / faster queue.
 
-    private Map<Long, Socket> socketMap         = new HashMap<>();
+    private Map<Long, Socket> socketMap         = new HashMap<Long, Socket>();
 
     private ByteBuffer readByteBuffer  = ByteBuffer.allocate(1024 * 1024);
     private ByteBuffer writeByteBuffer = ByteBuffer.allocate(1024 * 1024);
@@ -33,8 +33,8 @@ public class SocketProcessor implements Runnable {
 
     private long              nextSocketId = 16 * 1024; //start incoming socket ids from 16K - reserve bottom ids for pre-defined sockets (servers).
 
-    private Set<Socket> emptyToNonEmptySockets = new HashSet<>();
-    private Set<Socket> nonEmptyToEmptySockets = new HashSet<>();
+    private Set<Socket> emptyToNonEmptySockets = new HashSet<Socket>();
+    private Set<Socket> nonEmptyToEmptySockets = new HashSet<Socket>();
 
 
     public SocketProcessor(Queue<Socket> inboundSocketQueue, MessageBuffer readMessageBuffer, MessageBuffer writeMessageBuffer, IMessageReaderFactory messageReaderFactory, IMessageProcessor messageProcessor) throws IOException {

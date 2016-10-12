@@ -1,4 +1,4 @@
-package com.jenkov.nioserver;
+package com.lami.foodie;
 
 import com.lami.foodie.Message;
 import com.lami.foodie.MessageBuffer;

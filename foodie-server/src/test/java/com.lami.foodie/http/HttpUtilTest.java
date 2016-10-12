@@ -1,4 +1,4 @@
-package com.jenkov.nioserver.http;
+package com.lami.foodie.http;
 
 import com.lami.foodie.http.HttpHeaders;
 import com.lami.foodie.http.HttpUtil;

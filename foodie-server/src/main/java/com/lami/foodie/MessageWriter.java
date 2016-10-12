@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class MessageWriter {
 
-    private List<Message> writeQueue   = new ArrayList<>();
+    private List<Message> writeQueue   = new ArrayList<Message>();
     private Message  messageInProgress = null;
     private int      bytesWritten      =    0;
 
