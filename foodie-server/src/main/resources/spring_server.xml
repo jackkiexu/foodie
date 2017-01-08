@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+		default-lazy-init="false">
+	<bean id="tcpConfigure" class="com.lami.tarsier.core.conf.Configure">
+		<property name="serverId"><value>1</value></property>
+		<property name="decoder"><value>decoder</value></property>
+		<property name="encoder"><value>encoder</value></property>
+		<property name="msgsufix"><value>msg</value></property>
+   		<property name="minbufsize"><value>65535</value></property> 
+   		<property name="maxbufsize"><value>65535</value></property>	 
+   		<property name="port"><value>8888</value></property> 
+   		<property name="readbufsize"><value>65535</value></property> 
+   		<property name="receivebufsize"><value>65535</value></property>	   		  		
+	</bean>	
+	<bean id="tcpHander" class="com.lami.tarsier.core.mina.Handle">
+		<property name="configure"><ref bean="tcpConfigure"/></property> 
+	</bean>	
+	<bean id="tcpAcceptor" class="org.apache.mina.transport.socket.nio.NioSocketAcceptor">
+		<property name="reuseAddress"><value>true</value></property>
+	</bean>
+	<bean id="tcpFilter" class="com.lami.tarsier.core.mina.Filter" />
+   	<bean id="tcpLoader" class="com.lami.tarsier.bootstrap.SocketServer" destroy-method="dispose">
+   	    <property name="configure"><ref bean="tcpConfigure"/></property>  		  		    		   		 	  		 		
+   		<property name="acceptor" ><ref bean="tcpAcceptor"/></property>
+   		<property name="hander"><ref bean="tcpHander"/></property>
+   		<property name="filter"><ref bean="tcpFilter"/></property>   		  		
+   	</bean>
+   	
+   	<bean id="decoder" class="com.lami.tarsier.protocol.MDecoder" scope="prototype">
+	</bean>	
+	<bean id="encoder" class="com.lami.tarsier.protocol.MEncoder" scope="prototype">
+	</bean>
+	<bean id="msg" class="com.lami.tarsier.message.MessageBusiness">
+		<property name="userCache"><ref bean="userCache"/></property>
+		<property name="loader"><ref bean="tcpLoader"/></property>
+	</bean>
+	<bean id="userCache" class="com.lami.tarsier.consumer.UserCache"/>
+	
+
+
+</beans>
