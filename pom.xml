@@ -27,18 +27,6 @@
     </properties>
     <dependencies>
 
-        <!-- tuomatuo server -->
-        <dependency>
-            <groupId>com.ailami.tuomatuo</groupId>
-            <artifactId>tuomatuo_core</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.ailami.tuomatuo</groupId>
-            <artifactId>tuomatuo_utils</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
         <!-- test -->
         <dependency>
             <groupId>junit</groupId>
