@@ -88,6 +88,7 @@ public class SocketServer {
 		chain.addLast ( "codec", new ProtocolCodecFilter ( new CodecFactory( this ) ) ) ;
 		_acceptor.setHandler ( _hander ) ;
 		_acceptor.bind ( new InetSocketAddress ( _configure.getPort () ) ) ;
+		_acceptor.setReuseAddress(true);
 		_acceptor.getSessionConfig ().setReadBufferSize ( _configure.getReadbufsize () ) ; 
 		_acceptor.getSessionConfig ().setReceiveBufferSize ( _configure.getReceivebufsize () ) ; 
 		//_acceptor.getSessionConfig().setTcpNoDelay(true);
