@@ -2,6 +2,8 @@ package com.lami.foodie.utils.json;
 
 import org.apache.log4j.Logger;
 
+import java.util.Locale;
+
 /**
  * Created by xujiankang on 2017/5/18.
  */
@@ -62,5 +64,9 @@ public class Person {
 
         logger.info("main thread execute");
 
+
+        logger.info(String.format(Locale.ENGLISH, "%010d", 99));
+        logger.info(String.format(Locale.ENGLISH, "%010d", 999));
+        logger.info(String.format(Locale.ENGLISH, "%010d", 9999));
     }
 }
