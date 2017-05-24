@@ -4,6 +4,8 @@ import com.lami.foodie.utils.classloader.test2.HotSwapURLClassLoader;
 import org.junit.Test;
 
 import java.io.File;
+import java.net.URL;
+import java.net.URLClassLoader;
 
 /**
  * Created by xjk on 5/2/17.
@@ -17,5 +19,7 @@ public class HotSwapURLClassLoaderTest {
         System.out.println(file);
         System.out.println(file.getAbsolutePath());
     }
+
+
 
 }
