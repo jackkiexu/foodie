@@ -3,6 +3,8 @@ package com.lami.foodie.utils.privileged;
 import org.apache.log4j.Logger;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URLClassLoader;
 import java.util.Arrays;
 
@@ -13,6 +15,9 @@ import java.util.Arrays;
  * java -Djava.security.manager -Djava.security.policy=/tmp/2017051501/my.policy -classpath foodie-utils.jar com.lami.foodie.utils.privileged.Server
  * java  -classpath foodie-utils.jar com.lami.foodie.utils.privileged.Server
  *
+ * 通过反射 invoke 方法
+ * http://azrael6619.iteye.com/blog/429797
+ *
  * 通过这个例子说明 对文件的读写权限等于在 操作系统上面再做了一层
  * Created by xujiankang on 2017/5/15.
  */
@@ -20,7 +25,7 @@ public class Server {
 
     private static final Logger logger = Logger.getLogger(Server.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
 
        /* readFileByLines("/1.txt");
         System.out.println("--------- read over------------");
@@ -31,7 +36,37 @@ public class Server {
 
         Client client = new Client();
         client.doCheck();*/
-        testClassLoader();
+//        testClassLoader();
+
+        Class<?> clazz = Server.class.getClassLoader().loadClass("com.lami.foodie.utils.privileged.Person");
+        logger.info("getMethods:" + Arrays.toString(clazz.getMethods()));
+        logger.info("getDeclaredMethods:" + Arrays.toString(clazz.getDeclaredMethods()));
+
+        /**
+         * 1. 定义统一的 处理接口
+         * 2. 传入 invoke 的 各种各样 obj 来激活对应的逻辑
+         */
+        try {
+            logger.info("clazz :" + clazz.getMethod("sayHello", String.class).invoke(new Client(), "hello"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            logger.info("clazz :" + clazz.getMethod("setName", String.class).invoke(new Client(), "hello"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Object invokeMethod(Object owner, String methodName, Object[] args) throws Exception {
+        Class ownerClass = owner.getClass();
+        Class[] argsClass = new Class[args.length];
+        for (int i = 0, j = args.length; i < j; i++) {
+            argsClass[i] = args[i].getClass();
+        }
+        Method method = ownerClass.getMethod(methodName,argsClass);
+        return method.invoke(owner, args);
     }
 
     private static void testClassLoader(){
