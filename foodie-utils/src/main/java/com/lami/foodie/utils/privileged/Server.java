@@ -1,6 +1,10 @@
 package com.lami.foodie.utils.privileged;
 
+import org.apache.log4j.Logger;
+
 import java.io.*;
+import java.net.URLClassLoader;
+import java.util.Arrays;
 
 /**
  * java 权限控制
@@ -14,9 +18,11 @@ import java.io.*;
  */
 public class Server {
 
+    private static final Logger logger = Logger.getLogger(Server.class);
+
     public static void main(String[] args) {
 
-        readFileByLines("/1.txt");
+       /* readFileByLines("/1.txt");
         System.out.println("--------- read over------------");
 
         appendMethodB("/1.txt", "wangwang");
@@ -24,8 +30,19 @@ public class Server {
 
 
         Client client = new Client();
-        client.doCheck();
+        client.doCheck();*/
+        testClassLoader();
     }
+
+    private static void testClassLoader(){
+        logger.info("init testClassLoader");
+        logger.info(Client.class);
+        logger.info("getURLs:" + Arrays.asList(((URLClassLoader) Client.class.getClassLoader()).getURLs()));
+        logger.info("over testClassLoader");
+    }
+
+
+
 
     /**
      * 以行为单位读取文件，常用于读面向行的格式化文件
