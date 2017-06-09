@@ -15,7 +15,11 @@ public class ClassLoaderTest {
 
     @Test
     public void test() throws Exception {
+        int a1 = 2 & 3;
+        boolean a = true;
+        boolean b = true;
 
+        System.out.println(!a && b);
         // cl1在加载HandleUtils和Param时将会使用AppClassLoader
         URLClassLoader cl1 = new URLClassLoader(new URL[] {new File("target/test-classes").toURI().toURL()}, null) {
 
