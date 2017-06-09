@@ -1,5 +1,6 @@
 package com.lami.foodie.utils.privileged;
 
+import com.lami.Person2;
 import org.apache.log4j.Logger;
 
 import java.io.FilePermission;
@@ -10,9 +11,14 @@ import java.security.PrivilegedAction;
 /**
  * Created by xujiankang on 2017/5/15.
  */
-public class Client implements Person {
+public class Client implements Person, Person2 {
 
-    private static final Logger logger = Logger.getLogger(Client.class);
+
+    public static Chick chick;
+
+    static {
+        Click2 click2 = new Click2();
+    }
 
     public void doCheck(){
         AccessController.doPrivileged(new PrivilegedAction<Object>() {
@@ -24,7 +30,7 @@ public class Client implements Person {
     }
 
     public void sayHello(String name){
-        logger.info("say:" + name);
+        System.out.println("say:" + name);
     }
 
     private void check(){
@@ -34,7 +40,16 @@ public class Client implements Person {
     }
 
     public String setName(String name) {
-        logger.info("setName:" + name);
+        System.out.println("setName:" + name);
         return name;
+    }
+
+
+    public void doClick2(Click2 click2){
+        click2.say("ss");
+    }
+
+    public void say2(String something) {
+        System.out.println("say2");
     }
 }

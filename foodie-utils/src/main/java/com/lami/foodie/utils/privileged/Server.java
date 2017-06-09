@@ -25,7 +25,15 @@ public class Server {
 
     private static final Logger logger = Logger.getLogger(Server.class);
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) {
+        logger.info("init client begin ");
+        Client client = new Client();
+        logger.info("init client over ");
+//        logger.info("client:" + client);
+    }
+
+
+    public static void main1(String[] args) throws Exception{
 
        /* readFileByLines("/1.txt");
         System.out.println("--------- read over------------");
