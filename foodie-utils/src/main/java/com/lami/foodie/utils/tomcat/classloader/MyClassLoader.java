@@ -48,6 +48,8 @@ public class MyClassLoader extends URLClassLoader {
         String classPath = MyClassLoader.class.getResource("/").getPath();
         MyClassLoader myClassLoader = new MyClassLoader(getURLs(classPath));
         Class clazz = myClassLoader.loadClass("com.lami.foodie.utils.privileged.Client", true);
+        Client client = (Client)clazz.newInstance();
+        System.out.println(client.chick);
 //        Class clazz2 = myClassLoader.loadClass("com.lami.foodie.utils.privileged.Client", true);
 //        Client client = (Client)clazz.newInstance();
 //        clazz.getFields();

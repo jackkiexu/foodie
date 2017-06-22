@@ -11,6 +11,9 @@ public class StaticDeadLockMain extends Thread {
 
     public char flag;
 
+    public StaticDeadLockMain() {
+    }
+
     public StaticDeadLockMain(char flag) {
         this.flag = flag;
         this.setName("Thread " + flag);
@@ -26,10 +29,16 @@ public class StaticDeadLockMain extends Thread {
         logger.info(getName() + " over");
     }
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         StaticDeadLockMain staticDeadLockMainA = new StaticDeadLockMain('A');
         staticDeadLockMainA.start();
         StaticDeadLockMain staticDeadLockMainB = new StaticDeadLockMain('B');
         staticDeadLockMainB.start();
+    }
+
+    public static void main(String[] args) throws Exception{
+        String className = StaticDeadLockMain.class.getName();
+        StaticDeadLockMain staticDeadLockMain = (StaticDeadLockMain)Class.forName(className).getConstructor().newInstance();
+        logger.info("staticDeadLockMain:" + staticDeadLockMain);
     }
 }
