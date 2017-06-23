@@ -14,7 +14,7 @@ import java.net.URLClassLoader;
 public class MyClassLoader extends URLClassLoader {
 
     // 工程class类所在的路径
-    private static String classPath = MyClassLoader.class.getResource("/").getPath();
+    private static String classPath = MyClassLoader.class.getResource("").getPath();
 
     public MyClassLoader(URL[] urls) {
         super(getURLs(classPath));
@@ -39,6 +39,8 @@ public class MyClassLoader extends URLClassLoader {
         System.out.println("*************************** over1");
         Class.forName("com.lami.foodie.utils.classloader.test4.XiaoWang");
         System.out.println("*************************** over2");
+        URL springURL = myClassLoader.getResource("spring.properties");
+        System.out.println("springURL:" + springURL);
     }
 
 
