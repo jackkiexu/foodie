@@ -3,6 +3,7 @@ package com.lami.foodie.utils.tomcat.propertieslistener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import java.util.HashMap;
 
 /**
  * Created by xujiankang on 2017/6/26.

@@ -1,4 +1,0 @@
-[2017-06-28 19:48:23,005] INFO  main (BeanConfigListener.java:22) - serverPort| 8012 update to 8080
-[2017-06-28 19:48:23,034] INFO  main (BeanConfigListener.java:22) - serverPort| 8080 update to 8081
-[2017-06-28 19:48:23,035] INFO  main (BeanConfigListener.java:22) - serverPort| 8081 update to 8082
-[2017-06-28 19:48:23,035] INFO  main (BeanConfigListener.java:22) - serverPort| 8082 update to 8083
