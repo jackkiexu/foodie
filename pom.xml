@@ -514,6 +514,14 @@
             <version>0.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/jboss/jbossall-client -->
+        <dependency>
+            <groupId>jboss</groupId>
+            <artifactId>jbossall-client</artifactId>
+            <version>3.2.6</version>
+        </dependency>
+
+
 
     </dependencies>
 
