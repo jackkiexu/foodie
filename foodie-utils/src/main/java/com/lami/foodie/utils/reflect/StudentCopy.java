@@ -1,9 +1,9 @@
 package com.lami.foodie.utils.reflect;
 
 /**
- * Created by xujiankang on 2017/6/21.
+ * Created by xujiankang on 2017/7/13.
  */
-public class Student {
+public class StudentCopy {
 
     private Long id;
     private String group;
@@ -11,17 +11,6 @@ public class Student {
     private String sex;
     private Integer age;
     private String birthday;
-
-    public Student(){}
-
-    public Student(Long id, String group, String name, String sex, Integer age, String birthday) {
-        this.id = id;
-        this.group = group;
-        this.name = name;
-        this.sex = sex;
-        this.age = age;
-        this.birthday = birthday;
-    }
 
     public Long getId() {
         return id;
@@ -73,7 +62,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
+        return "StudentCopy{" +
                 "id=" + id +
                 ", group='" + group + '\'' +
                 ", name='" + name + '\'' +
