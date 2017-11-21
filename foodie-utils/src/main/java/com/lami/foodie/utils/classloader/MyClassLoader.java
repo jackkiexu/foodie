@@ -35,6 +35,7 @@ public class MyClassLoader extends URLClassLoader {
     public static void main(String[] args) throws Exception{
         MyClassLoader myClassLoader = new MyClassLoader(null);
         Class clazz = myClassLoader.loadClass("com.lami.foodie.utils.classloader.test4.XiaoWang", true);
+        System.out.println(clazz.getClassLoader());
 //        ((XiaoWang)clazz.newInstance()).bar();
         System.out.println("*************************** over1");
         Class.forName("com.lami.foodie.utils.classloader.test4.XiaoWang");
