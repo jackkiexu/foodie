@@ -1,10 +1,14 @@
 package com.lami;
 
+import com.lami.foodie.utils.classloader.test4.*;
 import com.lami.foodie.utils.tomcat.classloader.HandleUtils;
 import com.lami.foodie.utils.tomcat.classloader.Param;
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.InvocationHandler;
 import org.junit.Test;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 
@@ -43,6 +47,24 @@ public class ClassLoaderTest {
         // 下面的 Param 是由 ClassLoader.getSystemClassLoader() 加载出来的
         Param param = (Param) cl1.loadClass("com.lami.foodie.utils.tomcat.classloader.Param2").newInstance();
         hu.m(param);
+    }
+
+    @Test
+    public void testInvocationHandler() throws Exception {
+        Enhancer enhancer = new Enhancer();
+        enhancer.setSuperclass(com.lami.Person.class);
+        enhancer.setCallback(new InvocationHandler() {
+            public Object invoke(Object proxy, Method method, Object[] args)
+                    throws Throwable {
+                if (method.getDeclaringClass() != Object.class && method.getReturnType() == String.class) {
+                    return "Hello cglib!";
+                } else {
+                    throw new RuntimeException("Do not know what to do.");
+                }
+            }
+        });
+        com.lami.Person proxy = (com.lami.Person) enhancer.create();
+        System.out.println(proxy.getName());
     }
 
 }

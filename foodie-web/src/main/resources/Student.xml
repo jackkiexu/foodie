@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+       <student id = "1" group = "1">
+              <name>张三</name>
+              <sex>男</sex>
+              <age>18</age>
+              <birthday>1990-09-09</birthday>
+       </student>
+       <student id = "2" group = "2">
+              <name>李四</name>
+              <sex>女</sex>
+              <age>17</age>
+              <birthday>1991-10-10</birthday>
+       </student>
+</root>

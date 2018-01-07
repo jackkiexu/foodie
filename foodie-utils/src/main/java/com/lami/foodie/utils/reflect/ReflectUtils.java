@@ -1,5 +1,6 @@
 package com.lami.foodie.utils.reflect;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
@@ -32,7 +33,7 @@ public class ReflectUtils {
     }
 
 
-    public static void main(String[] args) throws Exception{
+    public static void main1(String[] args) throws Exception{
         Student student1 = new Student();
         Student student2 = new Student();
 
@@ -43,4 +44,18 @@ public class ReflectUtils {
         ReflectUtils.invokeMethod(method, student1, params);
         logger.info("student1:" + student1);
     }
+
+    public static void main(String[] args) {
+        Student student = new Student(null,"a", "a", "a", null, "a" );
+        StudentCopy studentCopy = new StudentCopy();
+        try {
+            BeanUtils.copyProperties(studentCopy, student);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        logger.info(studentCopy);
+
+    }
+
 }
