@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="testAdvisor" class="com.lami.foodie.TestAdvisor"></bean>
+
+    <bean id = "testAOP" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyInterfaces">
+            <value>com.lami.foodie.TestProxyInterface</value>
+        </property>
+
+        <property name="target">
+            <bean class="com.lami.foodie.TestTarget"></bean>
+        </property>
+
+        <property name="interceptorNames">
+            <list>
+                <value>testAdvisor</value>
+            </list>
+        </property>
+    </bean>
+
+
+
+    <!-- 加载jdbc.property -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+    <!-- 数据源配置, 使用DBCP数据库连接池 -->
+    <!-- dataSource -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxActive" value="100"/>
+        <property name="maxIdle" value="30"/>
+        <property name="maxWait" value="10000"/>
+        <property name="minIdle" value="10" />
+        <property name="testOnBorrow" value="true"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="validationQuery">
+            <value>select 1 from dual</value>
+        </property>
+    </bean>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="userDao" class="com.lami.foodie.transaction.UserDaoImpl">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <bean id="addressDao" class="com.lami.foodie.transaction.AddressDaoImp" >
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <bean id="userService" class="com.lami.foodie.transaction.UserServiceImpl">
+        <property name="addressService" ref="addressService"/>
+        <property name="userDao" ref="userDao"/>
+        <property name="txManager" ref="transactionManager"/>
+    </bean>
+
+    <bean id="addressService" class="com.lami.foodie.transaction.AddresServiceImpl">
+        <property name="addressDao" ref="addressDao"/>
+        <property name="txManager" ref="transactionManager"/>
+    </bean>
+
+
+    <bean id="transactionTemplateTest" class="com.lami.foodie.transaction.TransactionTemplateTest">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="transactionDefinition">
+            <bean class="org.springframework.transaction.support.DefaultTransactionDefinition">
+                <property name="propagationBehaviorName" value="PROPAGATION_REQUIRED"/>
+            </bean>
+        </property>
+        <property name="txManager" ref="transactionManager"></property>
+    </bean>
+
+    <!-- Definition for studentJDBCTemplate bean -->
+    <bean id="studentJDBCTemplate" class="com.lami.foodie.transaction.test1.StudentJDBCTemplate">
+        <property name="dataSource"  ref="dataSource" />
+        <property name="transactionManager"  ref="transactionManager" />
+    </bean>
+</beans>
